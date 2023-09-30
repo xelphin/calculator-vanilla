@@ -168,47 +168,6 @@ const addSymbol = {
     "ac": function() { reset(); }
 };
 
-// CHECKING
-console.log("param1 - undefined: " + param1); // should be undefined
-addSymbol["1"]();
-console.log("param1 - 1: " + param1); // should be 1
-addSymbol["sign"]();
-console.log("param1 - -1: " + param1); // should be -1
-addSymbol["+"]();
-console.log("param1 - -1: " + param1); // should be -1
-addSymbol["4"]();
-console.log("param1 - -1: " + param1); // should be -1
-console.log("operation - +: " + operation); // should be +
-console.log("param2 - 4: " + param2); // should be 4
-addSymbol["0"]();
-console.log("param2 - 40: " + param2); // should be 40
-addSymbol["="]();
-console.log("solution - 39: " + param1); // should be 39
-addSymbol["-"]();
-console.log("param1 - 39: " + param1); // should be 39
-addSymbol["2"]();
-console.log("param1 - 39: " + param1); // should be 39
-console.log("param2 - 2: " + param2); // should be 2
-addSymbol["="]();
-console.log("solution - 37: " + param1); // should be 37
-addSymbol["ac"]();
-console.log("param1 - undefined: " + param1); // should be undefined
-// Checking point
-addSymbol["5"]();
-addSymbol["."]();
-addSymbol["."]();
-addSymbol["3"]();
-addSymbol["2"]();
-addSymbol["."]();
-addSymbol["1"]();
-addSymbol["+"]();
-addSymbol["."]();
-addSymbol["2"]();
-addSymbol["="]();
-console.log("param1 - 5.521: " + param1); // should be 5.521
-addSymbol["ac"]();
-console.log("----\n----\n----\n");
-
 // --------------------------------------------
 //              CONSOLE FUNCTIONS 
 // --------------------------------------------
