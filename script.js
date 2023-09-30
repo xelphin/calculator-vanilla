@@ -55,7 +55,13 @@ function evaluate() {
 }
 
 // --- ENTERING SYMBOLS ---
-// Manipulating the strings of firstParam/secondParam/operation
+// Manipulating the strings of param1/param2/operation
+
+function reset() {
+    param1 = undefined;
+    operation = undefined;
+    param2 = undefined;
+}
 
 function setOperation(symbol) {
     if (onFirst && param1==undefined) {
@@ -126,31 +132,35 @@ const addSymbol = {
     "9": function() { increaseString("9"); },
     "0": function() { increaseStringZero(); },
     "sign": function() { changeSign(); },
-    "=": function() { evaluate(); }
+    "=": function() { evaluate(); },
+    "ac": function() { reset(); }
 };
 
 // CHECKING
+console.log("param1 - undefined: " + param1); // should be undefined
 addSymbol["1"]();
-console.log("param1: " + param1); // should be 1
+console.log("param1 - 1: " + param1); // should be 1
 addSymbol["sign"]();
-console.log("param1: " + param1); // should be -1
+console.log("param1 - -1: " + param1); // should be -1
 addSymbol["+"]();
-console.log("param1: " + param1); // should be -1
+console.log("param1 - -1: " + param1); // should be -1
 addSymbol["4"]();
-console.log("param1: " + param1); // should be -1
-console.log("operation: " + operation); // should be +
-console.log("param2: " + param2); // should be 4
+console.log("param1 - -1: " + param1); // should be -1
+console.log("operation - +: " + operation); // should be +
+console.log("param2 - 4: " + param2); // should be 4
 addSymbol["0"]();
-console.log("param2: " + param2); // should be 40
+console.log("param2 - 40: " + param2); // should be 40
 addSymbol["="]();
-console.log("solution: " + param1); // should be 39
+console.log("solution - 39: " + param1); // should be 39
 addSymbol["-"]();
-console.log("param1: " + param1); // should be 39
+console.log("param1 - 39: " + param1); // should be 39
 addSymbol["2"]();
-console.log("param1: " + param1); // should be 39
-console.log("param2: " + param2); // should be 2
+console.log("param1 - 39: " + param1); // should be 39
+console.log("param2 - 2: " + param2); // should be 2
 addSymbol["="]();
-console.log("solution: " + param1); // should be 37
+console.log("solution - 37: " + param1); // should be 37
+addSymbol["ac"]();
+console.log("param1 - undefined: " + param1); // should be undefined
 
 // --------------------------------------------
 //                     DOM 
