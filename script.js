@@ -53,6 +53,7 @@ function evaluate() {
     else {
         param1 = evaluateOperation[operation]( Number(param1),  Number(param2));
     }
+    param1 = param1.toString(10);
     // Reset 'operation' and 'param2'
     console.log("Calculation solution: "+ param1);
     operation = undefined;
@@ -87,6 +88,11 @@ function increaseString(symbol) {
     if (onFirst && param1 == undefined) {
         param1 = symbol;
     }
+    else if (!onFirst && operation == undefined) {
+        // happens when the previous solution is param1
+        onFirst = true;
+        param1 = symbol;
+    }
     else if (!onFirst && param2 == undefined) {
         param2 = symbol
     }
@@ -114,7 +120,7 @@ function changeSignAux(param) {
 }
 
 function changeSign() {
-    if (onFirst && param1 != undefined) {
+    if ((onFirst && param1 != undefined) || (!onFirst && operation == undefined)) {
         param1 = changeSignAux(param1);
     }
     else if (!onFirst && param2 != undefined) {
@@ -123,14 +129,22 @@ function changeSign() {
 }
 
 function addPoint() {
-    temp = (onFirst) ? param1 : param2;
-    if (temp == undefined) {
-        temp = "0."
+    if (onFirst && param1 == undefined) {
+        param1 = "0.";
     }
-    else if (!temp.includes('.')){
-        temp+=".";
+    else if (!onFirst && operation == undefined) {
+        // happens when the previous solution is param1
+        onFirst = true;
+        param1 == undefined ? param1 = "0." : ((!param1.includes('.')) ? param1 = param1 + "." : null);
     }
-    onFirst ? param1 = temp : param2 = temp;
+    else if (!onFirst && param2 == undefined) {
+        param2 = "0."
+    }
+    else if (onFirst && !param1.includes('.')) {
+        param1 += ".";
+    } else if (!onFirst && !param2.includes('.')) {
+        param2 += ".";
+    }
 }
 
 const addSymbol = {
