@@ -1,2 +1,4 @@
-# calculator-vanilla
+# Calculator
 Vanilla Javascript - Calculator
+
+
