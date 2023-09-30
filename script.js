@@ -6,6 +6,17 @@ let param1 = undefined;
 let param2 = undefined;
 let operation = undefined;
 let onFirst = true;
+let zeroDiv = false;
+
+// --------------------------------------------
+//                     DOM 
+// --------------------------------------------
+
+// COLLECT
+const buttons = document.querySelectorAll('.calculator-btn');
+let buttonsArr = Array.from(buttons);
+let result = document.querySelector('#result');
+let description = document.querySelector('#description-div');
 
 // --------------------------------------------
 //                  CALCULATOR 
@@ -27,7 +38,11 @@ function multiply (a,b) {
 }
 function divide (a,b) {
     // TODO: don't allow division be zero
-    if (b==0) b=1; // change
+    if (b==0) {
+        console.log("got zero as my denominator");
+        zeroDiv = true;
+        return 0;
+    } // change
     console.log("Dividing: "+ a + " with " + b);
     return a/b;
 }
@@ -97,9 +112,9 @@ function increaseString(symbol) {
         param2 = symbol
     }
     else if (onFirst) {
-        param1 += symbol;
+        (param1 == "0")  ? param1 = symbol : param1 += symbol;
     } else {
-        param2 += symbol;
+        (param2 == "0")  ? param2 = symbol : param2 += symbol;
     }
 }
 
@@ -107,8 +122,16 @@ function increaseStringZero() {
     if (onFirst && param1 != undefined) {
         param1 += "0";
     }
+    else if (!onFirst && operation == undefined) {
+        // happens when the previous solution is param1
+        onFirst = true;
+        param1 = "0";
+    }
     else if (!onFirst && param2 != undefined) {
-        param2 += "0"
+        param2 += "0";
+    } 
+    else if (!onFirst && param2 == undefined) {
+        param2 = "0";
     }
 }
 
@@ -185,17 +208,18 @@ function printCurrentEntries() {
 //                     DOM 
 // --------------------------------------------
 
-// COLLECT
-const buttons = document.querySelectorAll('.calculator-btn');
-let buttonsArr = Array.from(buttons);
-let result = document.querySelector('#result');
-let description = document.querySelector('#description-div');
-
 // FUNCTIONS
 function callAddSymbol(event) {
     let symbol = event.target.getAttribute('data-operation');
     addSymbol[symbol]();
+    // Show in Description
     description.textContent = printCurrentEntries();
+    if (zeroDiv) {
+        console.log("divided by zero");
+        zeroDiv = false;
+        description.textContent = "Can't divide by zero!";
+    }
+    // Show in Calculator Result
     if (param1 == undefined) {
         result.textContent = "0"; 
     }
