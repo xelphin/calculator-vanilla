@@ -219,6 +219,7 @@ function printCurrentEntries() {
     operation == undefined ? full += " ? " : full += operation;
     param2 == undefined ? full += "___" : full += param2;
     console.log(full);
+    return full;
 }
 
 // --------------------------------------------
@@ -229,12 +230,13 @@ function printCurrentEntries() {
 const buttons = document.querySelectorAll('.calculator-btn');
 let buttonsArr = Array.from(buttons);
 let result = document.querySelector('#result');
+let description = document.querySelector('#description-div');
 
 // FUNCTIONS
 function callAddSymbol(event) {
     let symbol = event.target.getAttribute('data-operation');
     addSymbol[symbol]();
-    printCurrentEntries();
+    description.textContent = printCurrentEntries();
     if (param1 == undefined) {
         result.textContent = "0"; 
     }
