@@ -47,11 +47,11 @@ body {
     justify-content: space-around;
 }
 
-.calculator-btn {
+.calculator-btn, #result {
     background-color: var(--light);
     padding: 10px 20px;
     font-size: 25px;
-    height: 20%;
+    height: 16.67%;
 }
 .calculator-btn:hover {
     background-color: var(--light-darker);
@@ -64,7 +64,12 @@ body {
     background-color: var(--light);
 }
 
-
+#result {
+    width: 100%;
+    background-color: var(--dark);
+    color: var(--light);
+    font-size: 50px;
+}
 .long-btn {
     width: 50%;
 }

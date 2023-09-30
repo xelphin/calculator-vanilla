@@ -133,8 +133,6 @@ function addPoint() {
     onFirst ? param1 = temp : param2 = temp;
 }
 
-// TODO: instead of param1/param2 make and array of params (size 2) and select [0] or [1] using onFirst
-
 const addSymbol = {
     "+": function() { setOperation("+"); },
     "-": function() { setOperation("-"); },
@@ -194,7 +192,52 @@ addSymbol["."]();
 addSymbol["2"]();
 addSymbol["="]();
 console.log("param1 - 5.521: " + param1); // should be 5.521
+addSymbol["ac"]();
+console.log("----\n----\n----\n");
+
+// --------------------------------------------
+//              CONSOLE FUNCTIONS 
+// --------------------------------------------
+
+function printCurrentEntries() {
+    let full = "";
+    param1 == undefined ? full += "___" : full += param1;
+    operation == undefined ? full += " ? " : full += operation;
+    param2 == undefined ? full += "___" : full += param2;
+    console.log(full);
+}
+
 // --------------------------------------------
 //                     DOM 
 // --------------------------------------------
+
+// COLLECT
+const buttons = document.querySelectorAll('.calculator-btn');
+let buttonsArr = Array.from(buttons);
+let result = document.querySelector('#result');
+
+// FUNCTIONS
+function callAddSymbol(event) {
+    let symbol = event.target.getAttribute('data-operation');
+    addSymbol[symbol]();
+    printCurrentEntries();
+    if (param1 == undefined) {
+        result.textContent = "0"; 
+    }
+    else if(param2 == undefined) {
+        result.textContent = param1;
+    }
+    else {
+        result.textContent = param2;
+    }
+}
+
+
+// APPLY LISTENERS
+buttonsArr.forEach( (btn) => {
+    btn.addEventListener("click", (event) => callAddSymbol(event) );
+});
+
+
+
 
