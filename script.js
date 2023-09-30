@@ -14,17 +14,21 @@ let onFirst = true;
 // --- EVALUATE ---
 // Do the actual calculation
 function add (a,b) {
+    console.log("Adding: "+ a + " with " + b);
     return a+b;
 }
 function subtract (a,b) {
+    console.log("Subtracting: "+ a + " with " + b);
     return a-b;
 }
 function multiply (a,b) {
+    console.log("Multiplying: "+ a + " with " + b);
     return a*b;
 }
 function divide (a,b) {
     // TODO: don't allow division be zero
     if (b==0) b=1; // change
+    console.log("Dividing: "+ a + " with " + b);
     return a/b;
 }
 
@@ -50,6 +54,7 @@ function evaluate() {
         param1 = evaluateOperation[operation]( Number(param1),  Number(param2));
     }
     // Reset 'operation' and 'param2'
+    console.log("Calculation solution: "+ param1);
     operation = undefined;
     param2 = undefined;
 }
@@ -61,6 +66,7 @@ function reset() {
     param1 = undefined;
     operation = undefined;
     param2 = undefined;
+    onFirst = true;
 }
 
 function setOperation(symbol) {
@@ -116,6 +122,19 @@ function changeSign() {
     }
 }
 
+function addPoint() {
+    temp = (onFirst) ? param1 : param2;
+    if (temp == undefined) {
+        temp = "0."
+    }
+    else if (!temp.includes('.')){
+        temp+=".";
+    }
+    onFirst ? param1 = temp : param2 = temp;
+}
+
+// TODO: instead of param1/param2 make and array of params (size 2) and select [0] or [1] using onFirst
+
 const addSymbol = {
     "+": function() { setOperation("+"); },
     "-": function() { setOperation("-"); },
@@ -131,6 +150,7 @@ const addSymbol = {
     "8": function() { increaseString("8"); },
     "9": function() { increaseString("9"); },
     "0": function() { increaseStringZero(); },
+    ".": function() { addPoint(); },
     "sign": function() { changeSign(); },
     "=": function() { evaluate(); },
     "ac": function() { reset(); }
@@ -161,7 +181,19 @@ addSymbol["="]();
 console.log("solution - 37: " + param1); // should be 37
 addSymbol["ac"]();
 console.log("param1 - undefined: " + param1); // should be undefined
-
+// Checking point
+addSymbol["5"]();
+addSymbol["."]();
+addSymbol["."]();
+addSymbol["3"]();
+addSymbol["2"]();
+addSymbol["."]();
+addSymbol["1"]();
+addSymbol["+"]();
+addSymbol["."]();
+addSymbol["2"]();
+addSymbol["="]();
+console.log("param1 - 5.521: " + param1); // should be 5.521
 // --------------------------------------------
 //                     DOM 
 // --------------------------------------------
