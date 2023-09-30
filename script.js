@@ -36,16 +36,22 @@ const evaluateOperation = {
 }
 
 function evaluate() {
+    // Update 'param1' (also represents solution)
     if (param1 == undefined) {
         solution = 0;
     }
-    if (operation == undefined) {
+    else if (operation == undefined) {
         param1 = Number(param1);
     }
-    if (param2 == undefined) {
+    else if (param2 == undefined) {
         param1 = evaluateOperation[operation]( Number(param1),  Number(param1));
     }
-    param1 = evaluateOperation[operation]( Number(param1),  Number(param2));
+    else {
+        param1 = evaluateOperation[operation]( Number(param1),  Number(param2));
+    }
+    // Reset 'operation' and 'param2'
+    operation = undefined;
+    param2 = undefined;
 }
 
 // --- ENTERING SYMBOLS ---
@@ -138,6 +144,13 @@ addSymbol["0"]();
 console.log("param2: " + param2); // should be 40
 addSymbol["="]();
 console.log("solution: " + param1); // should be 39
+addSymbol["-"]();
+console.log("param1: " + param1); // should be 39
+addSymbol["2"]();
+console.log("param1: " + param1); // should be 39
+console.log("param2: " + param2); // should be 2
+addSymbol["="]();
+console.log("solution: " + param1); // should be 37
 
 // --------------------------------------------
 //                     DOM 
