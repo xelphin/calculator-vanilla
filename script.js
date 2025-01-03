@@ -13,10 +13,10 @@ let zeroDiv = false;
 // --------------------------------------------
 
 // COLLECT
-const buttons = document.querySelectorAll('.calculator-btn');
-let buttonsArr = Array.from(buttons);
-let result = document.querySelector('#result');
-let description = document.querySelector('#description-div');
+const dom_buttons = document.querySelectorAll('.calculator-btn');
+let dom_buttonsArr = Array.from(dom_buttons);
+let dom_result = document.querySelector('#result');
+let dom_description = document.querySelector('#description-div');
 
 // --------------------------------------------
 //                  CALCULATOR 
@@ -47,7 +47,7 @@ function divide (a,b) {
     return a/b;
 }
 
-const evaluateOperation = {
+const EVALUATE_OPERATION = {
     "+": add,
     "-": subtract,
     "*": multiply,
@@ -63,10 +63,10 @@ function evaluate() {
         param1 = Number(param1);
     }
     else if (param2 == undefined) {
-        param1 = evaluateOperation[operation]( Number(param1),  Number(param1));
+        param1 = EVALUATE_OPERATION[operation]( Number(param1),  Number(param1));
     }
     else {
-        param1 = evaluateOperation[operation]( Number(param1),  Number(param2));
+        param1 = EVALUATE_OPERATION[operation]( Number(param1),  Number(param2));
     }
     param1 = param1.toString(10);
     // Reset 'operation' and 'param2'
@@ -86,16 +86,19 @@ function reset() {
 }
 
 function setOperation(symbol) {
+    // case: ___ ? ___
     if (onFirst && param1==undefined) {
         param1 = "0";
     }
     onFirst = false;
+    // case: x ? ___
     if (operation == undefined) {
         operation = symbol;
     } else {
+        // case: x op ___
         evaluate();
         param2 = undefined;
-        operation = symbol;
+        operation = symbol; // overwrite prev operation
     }
 }
 
@@ -170,7 +173,7 @@ function addPoint() {
     }
 }
 
-const addSymbol = {
+const ADD_SYMBOL_REDIRECTOR = {
     "+": function() { setOperation("+"); },
     "-": function() { setOperation("-"); },
     "*": function() { setOperation("*"); },
@@ -211,29 +214,29 @@ function printCurrentEntries() {
 // FUNCTIONS
 function callAddSymbol(event) {
     let symbol = event.target.getAttribute('data-operation');
-    addSymbol[symbol]();
+    ADD_SYMBOL_REDIRECTOR[symbol]();
     // Show in Description
-    description.textContent = printCurrentEntries();
+    dom_description.textContent = printCurrentEntries();
     if (zeroDiv) {
         console.log("divided by zero");
         zeroDiv = false;
-        description.textContent = "Can't divide by zero!";
+        dom_description.textContent = "Can't divide by zero!";
     }
-    // Show in Calculator Result
+    // Show in (DOM) Calculator Result
     if (param1 == undefined) {
-        result.textContent = "0"; 
+        dom_result.textContent = "0"; 
     }
     else if(param2 == undefined) {
-        result.textContent = param1;
+        dom_result.textContent = param1;
     }
     else {
-        result.textContent = param2;
+        dom_result.textContent = param2;
     }
 }
 
 
 // APPLY LISTENERS
-buttonsArr.forEach( (btn) => {
+dom_buttonsArr.forEach( (btn) => {
     btn.addEventListener("click", (event) => callAddSymbol(event) );
 });
 

@@ -1,21 +1,21 @@
 :root {
-    --light: #FAF2DF;
-    --light-darker: #ede0c2;
-    --dark: #011053;
+    --primary: #000000;
+    --primary2: #022227;
+    --secondary: #0ea7c2;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: var(--dark);
-    font-family: 'Roboto Condensed', sans-serif;
+    color: var(--secondary);
+    font-family: 'Press Start 2P', sans-serif;
 }
 
 /* BODY */
 
 body {
-    background-color: var(--light);
+    background-color: var(--primary);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -42,33 +42,33 @@ body {
 #calculator-div {
     width: 600px;
     height: 1000px;
-    background-color: var(--dark);
+    background-color: var(--secondary);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
 .calculator-btn, #result {
-    background-color: var(--light);
+    background-color: var(--primary);
     padding: 10px 20px;
     font-size: 25px;
     height: 16.67%;
 }
 .calculator-btn:hover {
-    background-color: var(--light-darker);
+    background-color: var(--primary2);
 }
 
 #ac-btn {
-    background-color: var(--light-darker);
+    background-color: var(--primary2);
 }
 #ac-btn:hover {
-    background-color: var(--light);
+    background-color: var(--primary);
 }
 
 #result {
     width: 100%;
-    background-color: var(--dark);
-    color: var(--light);
+    background-color: var(--secondary);
+    color: var(--primary);
     font-size: 50px;
 }
 .long-btn {
@@ -82,7 +82,7 @@ body {
 /* STYLE */
 
 .thick-border {
-    border: 3px solid var(--dark);
+    border: 3px solid var(--secondary);
 }
 
 .text-div p {
